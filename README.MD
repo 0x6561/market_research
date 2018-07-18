@@ -1,1 +1,2 @@
 This project is the result of me trying to decide what technology to learn, to be more employable in Phoenix Arizona. The webpage is minimal and relies on JQuery and Chart.js to speed up development. The charts are based on data scraped from a job board using python which takes a json file with the desired search terms broken down into categories such as languages, databases, and frameworks. This is still a work in progress and I welcome suggestions.  
+# market_research
