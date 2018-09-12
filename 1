@@ -12,40 +12,10 @@ import time
 import json
 import sqlite3
 
-sqlite_file = 'popular_tech.sqlite'
 
 # clear terminal
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
-
-#creates a connection to sqlite3 
-# db with name 'db_file' returns
-# connection on success, None otherwise
-def get_db_conn(db_file):
-    try:
-        conn = sqlite3.connect(db_file)
-        return conn
-    except Error as e:
-        print('SQLITE3 DB ERROR: %s ' % e)
-        return None
-
-
-# insert data into sqlite db
-# todo - insert everything at once
-def db_add(term, category, city, state, country, date, num_jobs):
-    sql = '''INSERT INTO POPULAR_TECH 
-             VALUES (?,?,?,?,?,?,?,?)'''
-# Connecting to the database file
-    conn = get_db_conn(sqlite_file)
-    c = conn.cursor()
-    try:
-        c.execute(sql, (None,term, category, city, state, country, date, num_jobs))
-
-    except sqlite3.Error as e:
-        print("SQLITE3 DB ERROR: %s " %e)
-
-    conn.commit()
-    conn.close()
 
 # save search terms to file (json)
 # requires a dict as a parameter
@@ -211,8 +181,6 @@ for category in terms_dict:
         soup = get_soup(URL)
         jobs_for_term = get_job_ct(soup)
         terms_dict[category][term] = jobs_for_term
-        # add data to db, so we can track trends...
-        db_add(term, category, 'phoenix', 'arizona', 'usa', start_time.strftime("%Y-%m-%d %H:%M"), jobs_for_term)
         # try to count unique jobs
         #count_unique_jobs(soup, id_dict)
         #for page in range(int(JOBS_PER_PAGE), jobs_for_term, int(JOBS_PER_PAGE)):
